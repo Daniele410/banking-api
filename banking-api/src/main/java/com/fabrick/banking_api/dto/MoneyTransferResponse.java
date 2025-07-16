@@ -14,7 +14,5 @@ public class MoneyTransferResponse {
     public static class Error {
         private String code;
         private String description;
-        private String message;
-        private String params;
     }
 }

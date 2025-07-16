@@ -22,9 +22,9 @@ public class TransferService {
         return fabrickClient.createMoneyTransfer(
                 fabrickProperties.getAuthSchema(),
                 fabrickProperties.getKey(),
+                "Europe/Rome",
                 accountId,
                 request
         );
     }
-
 }

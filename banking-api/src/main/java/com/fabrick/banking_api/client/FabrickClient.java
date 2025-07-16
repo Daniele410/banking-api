@@ -1,6 +1,5 @@
 package com.fabrick.banking_api.client;
 
-import com.fabrick.banking_api.config.FeignConfig;
 import com.fabrick.banking_api.dto.BalanceResponse;
 import com.fabrick.banking_api.dto.MoneyTransferRequest;
 import com.fabrick.banking_api.dto.MoneyTransferResponse;
@@ -10,8 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @FeignClient(
         name = "fabrickClient",
-        url = "${fabrick.api.base-url}",
-        configuration = FeignConfig.class
+        url = "${fabrick.api.base-url}"
 )
 public interface FabrickClient {
 
@@ -35,6 +33,7 @@ public interface FabrickClient {
     MoneyTransferResponse createMoneyTransfer(
             @RequestHeader("Auth-Schema") String authSchema,
             @RequestHeader("Api-Key") String apiKey,
+            @RequestHeader("X-Time-Zone") String timeZone,
             @PathVariable("accountId") Long accountId,
             @RequestBody MoneyTransferRequest request
     );
