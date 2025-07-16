@@ -1,21 +1,24 @@
 package com.fabrick.banking_api.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
-public class BalanceResponce {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class BalanceResponse {
     private String status;
     private BalancePayload payload;
 
     @Data
+    @JsonIgnoreProperties(ignoreUnknown = true)
     public static class BalancePayload {
         private BigDecimal availableBalance;
         private BigDecimal balance;
-        private BigDecimal currency;
-        private LocalDateTime date;
+        private String currency;
+        private LocalDate date;
     }
 
 
