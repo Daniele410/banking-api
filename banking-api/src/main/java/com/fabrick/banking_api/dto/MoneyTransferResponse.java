@@ -8,6 +8,7 @@ import lombok.Data;
 public class MoneyTransferResponse {
     private String status;
     private Error[] errors;
+    private Object payload;
 
     @Data
     @JsonIgnoreProperties(ignoreUnknown = true)
