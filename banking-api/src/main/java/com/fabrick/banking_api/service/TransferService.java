@@ -7,9 +7,11 @@ import com.fabrick.banking_api.dto.MoneyTransferResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class TransferService {
@@ -23,16 +25,25 @@ public class TransferService {
     private final ObjectMapper objectMapper;
 
     public MoneyTransferResponse createTransfer(MoneyTransferRequest request) {
+        log.info("Initiating money transfer for accountId={} with amount={} {}",
+                accountId, request.getAmount(), request.getCurrency());
         try {
-            return fabrickClient.createMoneyTransfer(
+            MoneyTransferResponse response = fabrickClient.createMoneyTransfer(
                     fabrickProperties.getAuthSchema(),
                     fabrickProperties.getKey(),
                     "Europe/Rome",
                     accountId,
                     request
             );
+            log.info("Transfer response received: status={}, payload={}",
+                    response.getStatus(), response.getPayload());
+            return response;
         } catch (FeignException.BadRequest ex) {
+            log.warn("BadRequest received from Fabrick: {}", ex.contentUTF8());
             return parseErrorResponse(ex);
+        } catch (Exception e) {
+            log.error("Unexpected error during transfer: {}", e.getMessage(), e);
+            throw e;
         }
     }
 
@@ -40,6 +51,7 @@ public class TransferService {
         try {
             return objectMapper.readValue(ex.contentUTF8(), MoneyTransferResponse.class);
         } catch (Exception e) {
+            log.error("Error parsing Fabrick error response: {}", e.getMessage(), e);
             MoneyTransferResponse fallback = new MoneyTransferResponse();
             fallback.setStatus("KO");
 
