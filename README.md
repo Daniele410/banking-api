@@ -94,6 +94,7 @@ The collection contains three pre-configured requests that hit **localhost:8080*
 3. **Create Transfer** – `POST /transfer` (body with example payload)
 
 Simply open Postman → *Import* → *File* → select the JSON file above and you’re ready to test the local API.
+
 Logging
 -------
 SLF4J; customize via logback.xml if needed.
