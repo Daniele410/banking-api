@@ -1,0 +1,95 @@
+{
+  "info": {
+    "_postman_id": "4d387fdb-9ab1-49a0-91e1-e71458528aa9",
+    "name": "banking-api",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "20888055",
+    "_collection_link": "https://orange-star-772882.postman.co/workspace/dpp-project~43a544f7-52bc-4955-a475-32fb4082a0c3/collection/20888055-4d387fdb-9ab1-49a0-91e1-e71458528aa9?action=share&source=collection_link&creator=20888055"
+  },
+  "item": [
+    {
+      "name": "getTransactions",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/transactions?from=2019-01-01&to=2019-12-01",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "transactions"
+          ],
+          "query": [
+            {
+              "key": "from",
+              "value": "2019-01-01",
+              "description": "AAAA-MM-DD"
+            },
+            {
+              "key": "to",
+              "value": "2019-12-01",
+              "description": "AAAA-MM-DD"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "createTransfer",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"creditor\": {\r\n    \"name\": \"Mario Rossi\",\r\n    \"account\": {\r\n      \"accountCode\": \"IT23A0336844430152923804660\"\r\n    }\r\n  },\r\n  \"description\": \"Bonifico test Fabrick\",\r\n  \"amount\": 100.00,\r\n  \"currency\": \"EUR\",\r\n  \"executionDate\": \"2025-07-17\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/transfer",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "transfer"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "getBalance",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/balance",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "balance"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
